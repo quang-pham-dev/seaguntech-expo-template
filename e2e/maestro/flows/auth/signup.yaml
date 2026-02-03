@@ -10,6 +10,9 @@ env:
 
 ---
 # Test sign up flow - creates a new account
+# Note: This test may fail if Supabase requires email verification
+# In that case, disable email verification in Supabase dashboard for testing
+
 - launchApp:
     clearState: true
 
@@ -61,12 +64,11 @@ env:
     visible: '.*'
     timeout: 30000
 
-# Check for success or error message
-# If we see Home, test passed
-# If we see error message, capture it for debugging
+# Check for onboarding screen (Welcome to Seaguntech)
+# Fixed: Changed from 'Get Started' to 'Welcome to Seaguntech'
 - runFlow:
     when:
-      visible: 'Get Started'
+      visible: 'Welcome to Seaguntech'
     file: ../onboarding/complete-onboarding.yaml
 
 # Try to verify home screen (may fail if email verification required)
